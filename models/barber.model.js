@@ -58,6 +58,8 @@ let barberSchema = new Schema({
     }
   }],
 },
-{timestamps: true})
+{ collection: 'barbers',
+   versionKey: false,
+  timestamps: true})
 
 module.exports = mongoose.model("Barber", barberSchema)

@@ -57,6 +57,8 @@ let userSchema = new Schema({
     },
     address: addressSchema
 },
-{timestamps: true})
+{ collection: 'users',
+   versionKey: false,
+  timestamps: true})
 
 module.exports = mongoose.model("User", userSchema)

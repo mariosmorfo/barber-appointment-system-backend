@@ -27,7 +27,9 @@ let appointmentSchema = new Schema({
     default: 'booked'
   }
 },
-{timestamps: true}
+{ collection: 'appointments',
+  versionKey: false,
+  timestamps: true}
 )
 
-module.exports = mongoose.model(appointmentSchema)
+module.exports = mongoose.model("Appointment",appointmentSchema)
