@@ -46,9 +46,12 @@ let userSchema = new Schema({
     },
     phone: {
       type: String,
+      required: [true, "Phone is required field"],
+      max:20
     },
     age: {
-      type: String
+      type: String,
+      required: [true, "Age is required field"],
     },
     role: {
       type: String,
