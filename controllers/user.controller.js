@@ -5,12 +5,9 @@ exports.createUser = async(req, res) => {
   console.log('Create user')
 
   const data = req.body;
+
   const saltOrRounds = 10;
-
-  let passwordHash = "";
-
-  if(data.password)
-    passwordHash = await bcrypt.hash(data.password, saltOrRounds)
+  const passwordHash = await bcrypt.hash(data.password, saltOrRounds)
 
   const newUser = new User({
     firstname: data.firstname,
@@ -58,7 +55,7 @@ exports.findUserByUsername = async(req, res) => {
   }
 }
 
-exports.deleteByUsername = async(req, res) => {
+exports.deleteUserByUsername = async(req, res) => {
   const username = req.params.username;
   console.log('Delete user with username: ', username)
 
