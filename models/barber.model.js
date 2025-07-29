@@ -24,6 +24,13 @@ let barberSchema = new Schema({
       lowercase: true,
       trim: true
     },
+    phone: {
+      type: String,
+      required: [true, "Username is required field"],
+    },
+    age: {
+      type: String
+    },
      email: {
       type: String,
       required: [true, "Email is required field"],
@@ -59,7 +66,7 @@ let barberSchema = new Schema({
   }],
 },
 { collection: 'barbers',
-   versionKey: false,
+  versionKey: false,
   timestamps: true})
 
 module.exports = mongoose.model("Barber", barberSchema)
