@@ -34,7 +34,7 @@ let barberSchema = new Schema({
        match: [ /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
        "Please fill a valid email address" ]
     },
-    passwordHash: {
+    password: {
       type: String,
       required: [true, "Password is required field"],
       select: false
