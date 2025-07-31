@@ -1,6 +1,6 @@
-const bcrypt      = require('bcrypt');
+const bcrypt = require('bcrypt');
 const authService = require('../services/auth.service');
-const User        = require('../models/user.model');
+const User = require('../models/user.model');
 
 exports.login = async (req, res) => {
   console.log('Login user', req.body);
@@ -16,16 +16,12 @@ exports.login = async (req, res) => {
     );
 
     if (!result) {
-      return res
-        .status(404)
-        .json({ status: false, data: 'User not found. Please register first.' });
+      return res.status(404).json({ status: false, data: 'User not found. Please register first.' });
     }
 
     const isMatch = await bcrypt.compare(password, result.password);
     if (!isMatch) {
-      return res
-        .status(401)
-        .json({ status: false, data: 'Invalid credentials.' });
+      return res.status(401).json({ status: false, data: 'Invalid credentials.' });
     }
 
     const token = authService.generateAccesToken({
@@ -40,4 +36,4 @@ exports.login = async (req, res) => {
     console.error('Problem in logging', err);
     return res.status(500).json({ status: false, data: 'Server error' });
   }
-};
+}
