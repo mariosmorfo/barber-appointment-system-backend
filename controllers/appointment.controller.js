@@ -75,7 +75,7 @@ exports.getAppointmentByBarber = async(req, res) => {
     .sort('dateTime')
 
     res.status(200).json({status: true, data: appointment})
-  }catch{
+  }catch(err){
     console.log('Error in fetching barber appointments')
     res.status(400).json({status: false, data: err})
   }
