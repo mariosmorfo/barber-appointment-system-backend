@@ -7,7 +7,7 @@ exports.createBarber = async(req, res) => {
   const data = req.body;
 
   const saltOrRounds = 10;
-  const passwordHash = await bcrypt.hash(data.passoword, saltOrRounds)
+  const passwordHash = await bcrypt.hash(data.password, saltOrRounds)
 
   const newBarber = new Barber({
     firstname: data.firstname,
