@@ -66,17 +66,19 @@ exports.getAppointmentByCustomer = async(req, res) =>{
 }
 
 exports.getAppointmentByBarber = async(req, res) => {
+  const {barberId} = req.params;
   console.log('Get barber appointments')
 
   try{
     const appointment = await Appointment
-    .find({barberId: req.user.id})
+    .find({barberId})
     .populate('userId', 'firstname lastname')
+    .populate('barberId', 'firstname lastname')
     .sort('dateTime')
 
     res.status(200).json({status: true, data: appointment})
   }catch(err){
-    console.log('Error in fetching barber appointments')
+    console.log('Error in fetching barber appointments', err)
     res.status(400).json({status: false, data: err})
   }
 }
@@ -110,8 +112,8 @@ exports.cancelAppointment = async(req, res) => {
 
 exports.updateAppointmentStatus = async (req, res) => {
   console.log('Update appointment status');
-  const { id } = req.params;    
-  const { status } = req.body;
+  const {id} = req.params;    
+  const {status} = req.body;
 
   const allowed = ['booked','cancelled','completed'];
   if (!allowed.includes(status)) {
@@ -119,22 +121,22 @@ exports.updateAppointmentStatus = async (req, res) => {
   }
 
   try {
-    const appt = await Appointment
+    const appointment = await Appointment
       .findById(id)
       .populate('userId','firstname lastname')
       .populate('barberId','firstname lastname')
 
-    if (!appt) {
-      return res.status(400).json({ message: 'Appointment not found' })
+    if (!appointment) {
+      return res.status(400).json({ message: 'Appointment not found'})
     }
 
-    appt.status = status;
-    await appt.save();
+    appointment.status = status;
+    await appointment.save();
 
-    res.status(200).json({ status: true, data: appt })
+    res.status(200).json({ status: true, data: appointment })
   } catch (err) {
     console.error('Error updating status', err);
-    return res.status(400).json({ message: err.message })
+    res.status(400).json({status:false, data: err.message })
   }
 };
 
