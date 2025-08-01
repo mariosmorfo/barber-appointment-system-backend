@@ -46,6 +46,11 @@ let barberSchema = new Schema({
       required: [true, "Password is required field"],
       select: false
     },
+    role: {
+      type: String,
+      enum : ['ADMIN', 'BARBER', 'CUSTOMER'],
+      default : 'BARBER'
+    },
     servicesOffered: [{
     name: {
       type: String,
