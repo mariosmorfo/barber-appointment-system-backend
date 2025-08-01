@@ -71,10 +71,16 @@ exports.deleteUserByUsername = async(req, res) => {
 exports.updateUserByUsername = async(req, res) => {
   const updateUser = req.body;
   const username = req.params.username;
+  const updateData = { ...req.body }
   console.log('Update user')
 
+  if (updateData.password) {
+    const saltRounds = 10;
+    updateData.password = await bcrypt.hash(updateData.password, saltRounds);
+  }
+
   try{
-    const result = await User.findOneAndUpdate({username: username}, updateUser, {new: true}).select('-password')
+    const result = await User.findOneAndUpdate({username: username}, updateData, updateUser, {new: true}).select('-password')
     res.status(200).json({status: true, data: result})
   }catch(err){
     console.log('Error in updating user')
