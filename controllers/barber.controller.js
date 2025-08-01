@@ -62,6 +62,11 @@ exports.deleteBarberByUsername = async(req, res) => {
 
   try{
     const result = await Barber.findOneAndDelete({username: username})
+
+    if (!result) {
+      return res.status(404).json({ status: false, message: `Barber "${username}" not found` });
+    }
+    
     res.status(200).json({status: true, data: result})
   }catch(err){
     console.log('Error in deleting barber')
@@ -72,10 +77,21 @@ exports.deleteBarberByUsername = async(req, res) => {
 exports.updateBarberByUsername = async(req, res) => {
   const updateBarber = req.body;
   const username = req.params.username;
+  const updateData = { ...req.body };
   console.log('Update Barber')
 
+  if (updateData.password) {
+    const saltRounds = 10;
+    updateData.password = await bcrypt.hash(updateData.password, saltRounds);
+  }
+
   try{
-    const result = await Barber.findOneAndUpdate({username: username}, updateBarber, {new: true}).select('-password')
+    const result = await Barber.findOneAndUpdate({username: username}, updateData, updateBarber, {new: true}).select('-password')
+
+    if (!result) {
+      return res.status(404).json({ status: false, message: `Barber "${username}" not found` });
+    }
+
     res.status(200).json({status: true, data: result})
   }catch(err){
     console.log('Error in updating barber')
