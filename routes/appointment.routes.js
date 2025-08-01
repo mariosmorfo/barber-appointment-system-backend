@@ -9,7 +9,8 @@ router.get('/barber/:barberId', verifyToken, appointmentController.getAppointmen
 router.get('/user/:userId', verifyToken, appointmentController.getAppointmentByCustomer)
 router.post('/create', verifyToken, appointmentController.createAppointment)
 router.delete('/cancel/:id', verifyToken, appointmentController.cancelAppointment)
-router.patch('/:id/status', verifyToken, verifyRoles('BARBER'), appointmentController.updateAppointmentStatus)
+router.patch('/status/:id', verifyToken, verifyRoles('BARBER'), appointmentController.updateAppointmentStatus)
 
 module.exports = router;
+
 
