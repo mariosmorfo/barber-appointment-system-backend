@@ -4,8 +4,6 @@ const User = require('../models/user.model');
 const Barber = require('../models/barber.model')
 
 exports.login = async (req, res) => {
-  console.log('Login user', req.body);
-
   const { username, password } = req.body;
 
   try {
@@ -28,16 +26,16 @@ exports.login = async (req, res) => {
       role: result.role
     });
 
+    logger.info('User login successfully')
+    logger.warn('User login successfully')
     return res.status(200).json({ status: true, data: token });
   } catch (err) {
-    console.error('Problem in logging', err);
+     logger.error('User login failed')
     return res.status(400).json({ status: false, data: 'Server error' });
   }
 }
 
 exports.barberLogin = async(req, res) => {
-  console.log('Barber login', req.body)
-
   const {username, password} = req.body;
 
   try{
@@ -60,10 +58,11 @@ exports.barberLogin = async(req, res) => {
       role: result.role
      
     });
-
-     return res.status(200).json({ status: true, data: token });
+    logger.info('Barber login successfully')
+    logger.warn('Barber login successfully')
+    return res.status(200).json({ status: true, data: token });
     }catch(err){
-    console.error('Problem in logging', err);
+     logger.error('Barber login failed')
     return res.status(400).json({ status: false, data: err });
     }
 }
