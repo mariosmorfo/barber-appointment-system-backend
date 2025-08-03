@@ -1,45 +1,25 @@
-# 💈Barber Appointment Booking API
+# Barber Appointment Booking API
 
-This is a RESTful API built with Node.js, Express, and MongoDB that allows users and barbers to manage appointments in a barber shop system. The project includes user authentication, role-based access control 
-(Admin, Barber, Customer), and structured CRUD operations for Users, Barbers, and Appointments.
-
-## Project Structure
-
-├── controllers/ # Business logic for each model
-│   ├── appointment.controller.js
-│   ├── auth.controller.js
-│   ├── barber.controller.js
-│   └── user.controller.js
-├── models/ # Mongoose schemas and models
-│   ├── appointment.model.js
-│   ├── barber.model.js
-│   └── user.model.js
-├── routes/ # All Express routes
-│   ├── appointment.routes.js
-│   ├── auth.routes.js
-│   ├── barber.routes.js
-│   └── user.routes.js
-├── middlewares/ # Middleware for auth and roles
-│   └── auth.middleware.js
-├── services/ # JWT service for token creation & validation
-│   └── auth.service.js
-├── logger/ # Winston logger configuration
-│   └── logger.js
-
-├── logs/ # Generated logs (info, error, warn, daily rotate)
-
-├── swagger.js # Swagger OpenAPI spec configuration
-
-├── app.js # Main Express app config
-
-├── server.js # Entry point to start the server
-
-├── .env # Environment variables
-
-└── README.md # Project documentation
+This is a RESTful **backend API** built with Node.js, Express, and MongoDB that allows users and barbers to manage appointments in a barber shop system. 
+The project includes user authentication, role-based access control (Admin, Barber, Customer), 
+and structured CRUD operations for Users, Barbers, and Appointments.
 
 
-## ✨Features 
+##  Technologies Used
+
+| Technology         | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| **Node.js**        | JavaScript runtime environment for executing server-side code               |
+| **Express.js**     | Minimal and flexible web application framework for building REST APIs       |
+| **MongoDB**        | NoSQL database used for storing users, appointments, and barbers            |
+| **Mongoose**       | ODM (Object Data Modeling) library for MongoDB and Node.js                  |
+| **JWT (jsonwebtoken)** | Used for secure authentication and authorization using access tokens    |
+| **Bcrypt**         | Library for hashing passwords securely before saving them to the database   |
+| **CORS**           | Middleware to allow cross-origin requests between frontend and backend      |
+| **Winston**        | Logging library for handling logs, including daily rotation and MongoDB logs|
+| **Swagger (OpenAPI)** | Provides interactive API documentation and testing interface             |
+
+## Features 
 
 - User and Barber registration & login (JWT based)
 
@@ -54,10 +34,6 @@ This is a RESTful API built with Node.js, Express, and MongoDB that allows users
 - Request logging with Winston + MongoDB transport
 
 - API documentation via Swagger UI
-
-## 🔐 Authentication & Roles
-
-### JWT tokens are used for secure access
 
 ## Roles & Permissions:
 
