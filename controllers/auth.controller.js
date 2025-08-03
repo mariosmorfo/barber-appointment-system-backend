@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const authService = require('../services/auth.service');
 const User = require('../models/user.model');
 const Barber = require('../models/barber.model')
+const logger = require('../logger/logger')
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;

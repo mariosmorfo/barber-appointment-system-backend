@@ -1,6 +1,7 @@
 const Barber = require('../models/barber.model');
 const User = require('../models/user.model');
 const Appointment = require('../models/appointment.model')
+const logger = require('../logger/logger')
 
 
 exports.createAppointment = async(req, res) => {
