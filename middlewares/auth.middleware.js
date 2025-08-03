@@ -14,9 +14,7 @@ function verifyToken(req, res, next) {
     req.user = result.payload;   
     return next();
   } else {
-    return res
-      .status(401)
-      .json({ status: false, message: 'Invalid token: ' + result.error });
+    return res.status(401).json({ status: false, message: 'Invalid token: ' + result.error });
   }
 }
 
@@ -27,9 +25,7 @@ function verifyRoles(allowedRole) {
       return res.status(403).json({ status: false, message: 'No role found' });
     }
     if (userRole !== allowedRole) {
-      return res
-        .status(403)
-        .json({ status: false, message: 'Insufficient permissions' });
+      return res.status(403).json({ status: false, message: 'Insufficient permissions' });
     }
     next();
   };
