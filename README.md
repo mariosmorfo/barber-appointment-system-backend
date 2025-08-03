@@ -1,36 +1,79 @@
 # 💈Barber Appointment Booking API
 
-This is a RESTful API built with Node.js, Express, and MongoDB that allows users and barbers to manage appointments in a barber shop system. The project includes user authentication, role-based access control (Admin, Barber, Customer), and structured CRUD operations for Users, Barbers, and Appointments.
+This is a RESTful API built with Node.js, Express, and MongoDB that allows users and barbers to manage appointments in a barber shop system. The project includes user authentication, role-based access control 
+(Admin, Barber, Customer), and structured CRUD operations for Users, Barbers, and Appointments.
 
-<pre> ## 📁 Project Structure ``` ├── controllers/ # Business logic for each model │ ├── appointment.controller.js │ ├── auth.controller.js │ ├── barber.controller.js │ └── user.controller.js ├── models/ # Mongoose schemas and models │ ├── appointment.model.js │ ├── barber.model.js │ └── user.model.js ├── routes/ # All Express routes │ ├── appointment.routes.js │ ├── auth.routes.js │ ├── barber.routes.js │ └── user.routes.js ├── middlewares/ # Middleware for auth and roles │ └── auth.middleware.js ├── services/ # JWT service for token creation & validation │ └── auth.service.js ├── logger/ # Winston logger configuration │ └── logger.js ├── logs/ # Generated logs (info, error, warn, daily rotate) ├── swagger.js # Swagger OpenAPI spec configuration ├── app.js # Main Express app config ├── server.js # Entry point to start the server ├── .env # Environment variables └── README.md # Project documentation ``` </pre>
+## Project Structure
+
+├── controllers/ # Business logic for each model
+│   ├── appointment.controller.js
+│   ├── auth.controller.js
+│   ├── barber.controller.js
+│   └── user.controller.js
+├── models/ # Mongoose schemas and models
+│   ├── appointment.model.js
+│   ├── barber.model.js
+│   └── user.model.js
+├── routes/ # All Express routes
+│   ├── appointment.routes.js
+│   ├── auth.routes.js
+│   ├── barber.routes.js
+│   └── user.routes.js
+├── middlewares/ # Middleware for auth and roles
+│   └── auth.middleware.js
+├── services/ # JWT service for token creation & validation
+│   └── auth.service.js
+├── logger/ # Winston logger configuration
+│   └── logger.js
+
+├── logs/ # Generated logs (info, error, warn, daily rotate)
+
+├── swagger.js # Swagger OpenAPI spec configuration
+
+├── app.js # Main Express app config
+
+├── server.js # Entry point to start the server
+
+├── .env # Environment variables
+
+└── README.md # Project documentation
+
 
 ## ✨Features 
 
-### User and Barber registration & login (JWT based)
+- User and Barber registration & login (JWT based)
 
-### Role-based access control (Admin, Barber, Customer)
+- Role-based access control (Admin, Barber, Customer)
 
-### Appointment creation, cancellation, and status update
+- Appointment creation, cancellation, and status update
 
-### CRUD operations for Users and Barbers
+- CRUD operations for Users and Barbers
 
-### Input validation and password hashing (bcrypt)
+- Input validation and password hashing (bcrypt)
 
-### Request logging with Winston + MongoDB transport
+- Request logging with Winston + MongoDB transport
 
-### API documentation via Swagger UI
+- API documentation via Swagger UI
 
 ## 🔐 Authentication & Roles
 
 ### JWT tokens are used for secure access
 
-### Roles:
+## Roles & Permissions:
 
-    ADMIN: Can create/update/delete barbers and users
+  ADMIN:
+    - Full administrative access
+    - Can create, update, or delete both barbers and users
+    - Can view all appointments
 
-    BARBER: Can view/update appointment status
+  BARBER:
+    - Can view appointments assigned to them
+    - Can update appointment statuses (e.g. mark as completed or cancelled)
 
-    CUSTOMER: Can create/cancel their own appointments
+  CUSTOMER:
+    - Can book new appointments with barbers
+    - Can view their own appointment history
+    - Can cancel their upcoming appointments
 
 ## Clone the Repository
 
