@@ -30,7 +30,7 @@ exports.createAppointment = async(req, res) => {
       res.status(200).json({status: true, data: appointment})
     }catch(err){
       console.log('Error in booking appointment', err)
-      res.status(500).json({ status: false, error: err})
+      res.status(400).json({ status: false, error: err})
     }
 }
 

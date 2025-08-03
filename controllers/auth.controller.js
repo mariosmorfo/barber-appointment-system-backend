@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
     return res.status(200).json({ status: true, data: token });
   } catch (err) {
     console.error('Problem in logging', err);
-    return res.status(500).json({ status: false, data: 'Server error' });
+    return res.status(400).json({ status: false, data: 'Server error' });
   }
 }
 
@@ -64,6 +64,6 @@ exports.barberLogin = async(req, res) => {
      return res.status(200).json({ status: true, data: token });
     }catch(err){
     console.error('Problem in logging', err);
-    return res.status(500).json({ status: false, data: err });
+    return res.status(400).json({ status: false, data: err });
     }
 }
