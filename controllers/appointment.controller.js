@@ -4,8 +4,6 @@ const Appointment = require('../models/appointment.model')
 
 
 exports.createAppointment = async(req, res) => {
-  console.log('Create an appointment')
-
   const {barberId, serviceName, dateTime} = req.body;
   const  userId = req.user.id;
 
@@ -27,15 +25,16 @@ exports.createAppointment = async(req, res) => {
     }
       const appointment = new Appointment({userId, barberId, serviceName, dateTime})
       await appointment.save()
+      logger.info('Appointment created successfully')
+      logger.warn('Appointment created successfully')
       res.status(200).json({status: true, data: appointment})
     }catch(err){
-      console.log('Error in booking appointment', err)
+      logger.error('Failed to create appointment')
       res.status(400).json({ status: false, error: err})
     }
 }
 
 exports.findAllAppointments = async (req, res) => {
-  console.log('Find all appointments')
 
   try{
     const appointment = await Appointment
@@ -43,31 +42,33 @@ exports.findAllAppointments = async (req, res) => {
     .populate('barberId', 'firstname lastname username')
     .populate('userId', 'firstname lastname username')
 
+    logger.info('Appointment fetched successfully')
+    logger.warn('Appointment fetched successfully')
     res.status(200).json({status: true, data: appointment})
   }catch(err) {
-    console.log('Error in finding all appointments', err)
-     res.status(400).json({status: false, data: err})
+    logger.error('Failed to fetch appointments')
+    res.status(400).json({status: false, data: err})
   }
 }
 
 exports.getAppointmentByCustomer = async(req, res) =>{
-  console.log('Get customer appointments')
 
   try{
     const appointment = await Appointment
     .find({userId: req.user.id})
     .populate('barberId', 'firstname lastname servicesOffered')
 
+    logger.info('Appointment with specific customer fetched successfully')
+    logger.warn('Appointment with specific customer fetched successfully')
     res.status(200).json({status: true, data: appointment})
   }catch(err){
-    console.log('Error in fetching customer appointments')
+    logger.error('Failed to fetch appointment with specific customer')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.getAppointmentByBarber = async(req, res) => {
   const {barberId} = req.params;
-  console.log('Get barber appointments')
 
   try{
     const appointment = await Appointment
@@ -76,16 +77,16 @@ exports.getAppointmentByBarber = async(req, res) => {
     .populate('barberId', 'firstname lastname')
     .sort('dateTime')
 
+    logger.info('Appointment with specific customer fetched successfully')
+    logger.warn('Appointment with specific customer fetched successfully')
     res.status(200).json({status: true, data: appointment})
   }catch(err){
-    console.log('Error in fetching barber appointments', err)
+    logger.error('Failed to fetch appointment with specific customer')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.cancelAppointment = async(req, res) => {
-  console.log('Cancel appointment')
-
   const {id} = req.params;
 
   try{
@@ -103,15 +104,16 @@ exports.cancelAppointment = async(req, res) => {
     }
 
     await appointment.deleteOne();
+    logger.info('Appointment deleted successfully')
+    logger.warn('Appointment deleted successfully')
     res.status(200).json({message: 'Appointment canceled'})
   }catch(err){
-    console.log('Error in canceling appointment')
+    logger.error('Failed to delete appointment')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.updateAppointmentStatus = async (req, res) => {
-  console.log('Update appointment status');
   const {id} = req.params;    
   const {status} = req.body;
 
@@ -132,10 +134,12 @@ exports.updateAppointmentStatus = async (req, res) => {
 
     appointment.status = status;
     await appointment.save();
-
+    
+    logger.info('Appointment status updated successfully')
+    logger.warn('Appointment status updated successfully')
     res.status(200).json({ status: true, data: appointment })
   } catch (err) {
-    console.error('Error updating status', err);
+    logger.error('Failed to update appointment status')
     res.status(400).json({status:false, data: err.message })
   }
 };
