@@ -38,24 +38,32 @@ and structured CRUD operations for Users, Barbers, and Appointments.
 ## Roles & Permissions:
 
   ADMIN:
+
     - Full administrative access
+
     - Can create, update, or delete both barbers and users
+
     - Can view all appointments
 
   BARBER:
+
     - Can view appointments assigned to them
+
     - Can update appointment statuses (e.g. mark as completed or cancelled)
 
   CUSTOMER:
+
     - Can book new appointments with barbers
+
     - Can view their own appointment history
+    
     - Can cancel their upcoming appointments
 
 ## Clone the Repository
 
 git clone <git@github.com:mariosmorfo/barber-appointment-system-backend.git>
 
-cd <barber-appointment-system-backend.git>
+cd <barber-appointment-system-backend>
 
 ## Install Dependencies
 
