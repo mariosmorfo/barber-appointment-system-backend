@@ -18,7 +18,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.5",
     "mongoose-to-swagger": "^1.5.1",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "winston-mongodb": "^7.0.0"
   },
   "devDependencies": {
     "dotenv-cli": "^9.0.0"
