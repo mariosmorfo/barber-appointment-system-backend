@@ -1,8 +1,8 @@
 const User = require('../models/user.model')
 const bcrypt = require('bcrypt')
+const logger = require('../logger/logger')
 
 exports.createUser = async(req, res) => {
-  console.log('Create user')
 
   const data = req.body;
 
@@ -23,47 +23,52 @@ exports.createUser = async(req, res) => {
 
   try{
     const result = await newUser.save()
+    logger.info('User created successfully')
+    logger.warn('User created successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error for creating new user', err)
+    logger.error('Failed to create user')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.findAllUsers = async(req ,res) => {
-  console.log('Find all users')
   
   try{
     const result = await User.find().select('-password')
+    logger.info('Users fetched successfully')
+    logger.warn('Users fetched successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in finding all users', err)
+    logger.error('Failed to fetch users')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.findUserByUsername = async(req, res) => {
   const username = req.params.username;
-  console.log('Find user with specific username: ', username)
 
   try{
     const result = await User.findOne({username: username})
+    logger.info('User with specific username fetched successfully')
+    logger.warn('User with specific username fetched successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in finding user')
+     logger.error('Failed to fetch user with specific username')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.deleteUserByUsername = async(req, res) => {
   const username = req.params.username;
-  console.log('Delete user with username: ', username)
 
   try{
     const result = await User.findOneAndDelete({username: username})
+    logger.info('User with specific username deleted successfully')
+    logger.warn('User with specific username deleted successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in deleting user', err)
+    logger.error('Failed to delete user with specific username')
     res.status(400).json({status: false, data: err})
   }
 }
@@ -72,7 +77,6 @@ exports.updateUserByUsername = async(req, res) => {
   const updateUser = req.body;
   const username = req.params.username;
   const updateData = { ...req.body }
-  console.log('Update user')
 
   if (updateData.password) {
     const saltRounds = 10;
@@ -81,9 +85,11 @@ exports.updateUserByUsername = async(req, res) => {
 
   try{
     const result = await User.findOneAndUpdate({username: username}, updateData, updateUser, {new: true}).select('-password')
+    logger.info('User with specific username updated successfully')
+    logger.warn('User with specific username updated successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in updating user')
+    logger.error('Failed to update user with specific username')
     res.status(400).json({status: false, data: err})
   }
 }
