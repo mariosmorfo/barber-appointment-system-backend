@@ -1,9 +1,8 @@
 const Barber = require('../models/barber.model')
 const bcrypt = require('bcrypt')
+const logger = require('../logger/logger')
 
 exports.createBarber = async(req, res) => {
-  console.log('Create Barber')
-
   const data = req.body;
 
   const saltOrRounds = 10;
@@ -22,43 +21,44 @@ exports.createBarber = async(req, res) => {
 
   try{
     const result = await newBarber.save()
+    logger.info('Barber created successfully')
+    logger.warn('Barber created successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error for creating new barber')
+    logger.error('Failed to create barber')
     res.status(400).json({status: false, data: err})
-
   }
 }
 
 exports.findAllBarbers = async(req, res) => {
-  console.log('Find all barbers')
 
   try{
     const result = await Barber.find().select('-password')
+    logger.info('Barber fetched successfully')
+    logger.warn('Barber fetched successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in finding all barbers')
+    logger.error('Failed to fetch barbers')
     res.status(400).json({status: false, data: err})
-
   }
 }
 
 exports.findBarberByUsername = async(req, res) => {
   const username = req.params.username;
-  console.log('Find barber with spesific username')
-
+  
   try{
     const result = await Barber.findOne({username: username})
+    logger.info('Barber with specific username fetched successfully')
+    logger.warn('Barber with specific username fetched successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in finding barber')
+    logger.error('Failed to fetch barber with specific username')
     res.status(400).json({status: false, data: err})
   }
 }
 
 exports.deleteBarberByUsername = async(req, res) => {
   const username = req.params.username;
-  console.log('Delete barber with username:' , username)
 
   try{
     const result = await Barber.findOneAndDelete({username: username})
@@ -67,9 +67,11 @@ exports.deleteBarberByUsername = async(req, res) => {
       return res.status(404).json({ status: false, message: `Barber "${username}" not found` });
     }
     
+    logger.info('Barber with specific username deleted successfully')
+    logger.warn('Barber with specific username deleted successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in deleting barber')
+    logger.error('Failed to delete barber with specific username')
     res.status(400).json({status: false, data: err})
   }
 }
@@ -78,7 +80,6 @@ exports.updateBarberByUsername = async(req, res) => {
   const updateBarber = req.body;
   const username = req.params.username;
   const updateData = { ...req.body };
-  console.log('Update Barber')
 
   if (updateData.password) {
     const saltRounds = 10;
@@ -91,10 +92,11 @@ exports.updateBarberByUsername = async(req, res) => {
     if (!result) {
       return res.status(404).json({ status: false, message: `Barber "${username}" not found` });
     }
-
+    logger.info('Barber with specific username updated successfully')
+    logger.warn('Barber with specific username updated successfully')
     res.status(200).json({status: true, data: result})
   }catch(err){
-    console.log('Error in updating barber')
+    logger.error('Failed to update barber with specific username')
     res.status(400).json({status: false, data: err})
   }
 }
