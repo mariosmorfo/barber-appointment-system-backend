@@ -44,7 +44,7 @@ exports.findAllUsers = async(req ,res) => {
 
 exports.findUserByUsername = async(req, res) => {
   const username = req.params.username;
-  console.log('Find user with specific username')
+  console.log('Find user with specific username: ', username)
 
   try{
     const result = await User.findOne({username: username})
