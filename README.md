@@ -2,56 +2,7 @@
 
 This is a RESTful API built with Node.js, Express, and MongoDB that allows users and barbers to manage appointments in a barber shop system. The project includes user authentication, role-based access control (Admin, Barber, Customer), and structured CRUD operations for Users, Barbers, and Appointments.
 
-## 📁Project Structure
-
-├── controllers/           # Business logic for each model
-│   ├── appointment.controller.js
-
-│   ├── auth.controller.js
-
-│   ├── barber.controller.js
-
-│   └── user.controller.js
-
-├── models/                # Mongoose schemas and models
-│   ├── appointment.model.js
-│
-│   ├── barber.model.js
-│
-│   └── user.model.js
-│
-├── routes/                # All Express routes
-│   ├── appointment.routes.js
-│
-│   ├── auth.routes.js
-│
-│   ├── barber.routes.js
-│
-│   └── user.routes.js
-│
-├── middlewares/          # Middleware for auth and roles
-│
-│   └── auth.middleware.js
-│
-├── services/             # JWT service for token creation & validation
-│
-│   └── auth.service.js
-│
-├── logger/               # Winston logger configuration
-│
-│   └── logger.js
-│
-├── logs/                 # Generated logs (info, error, warn, daily rotate)
-│
-├── swagger.js            # Swagger OpenAPI spec configuration
-│
-├── app.js                # Main Express app config
-│
-├── server.js             # Entry point to start the server
-│
-├── .env                  # Environment variables
-│
-└── README.md             # Project documentation
+<pre> ## 📁 Project Structure ``` ├── controllers/ # Business logic for each model │ ├── appointment.controller.js │ ├── auth.controller.js │ ├── barber.controller.js │ └── user.controller.js ├── models/ # Mongoose schemas and models │ ├── appointment.model.js │ ├── barber.model.js │ └── user.model.js ├── routes/ # All Express routes │ ├── appointment.routes.js │ ├── auth.routes.js │ ├── barber.routes.js │ └── user.routes.js ├── middlewares/ # Middleware for auth and roles │ └── auth.middleware.js ├── services/ # JWT service for token creation & validation │ └── auth.service.js ├── logger/ # Winston logger configuration │ └── logger.js ├── logs/ # Generated logs (info, error, warn, daily rotate) ├── swagger.js # Swagger OpenAPI spec configuration ├── app.js # Main Express app config ├── server.js # Entry point to start the server ├── .env # Environment variables └── README.md # Project documentation ``` </pre>
 
 ## ✨Features 
 
