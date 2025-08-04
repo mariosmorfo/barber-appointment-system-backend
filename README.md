@@ -61,9 +61,9 @@ and structured CRUD operations for Users, Barbers, and Appointments.
 
 ## Clone the Repository
 
-git clone git@github.com:mariosmorfo/barber-appointment-system-backend.git
+git clone git@github.com:mariosmorfo/barber-booking-app-backend.git
 
-cd barber-appointment-system-backend
+cd barber-booking-app-backend
 
 ## Install Dependencies
 
@@ -79,7 +79,7 @@ JWT_SECRET = your-jwt-secret
 
 npm run dev
 
-## 📘 API Documentation
+## API Documentation
 
 http://localhost:3000/api-docs
 
