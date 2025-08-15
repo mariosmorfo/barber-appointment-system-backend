@@ -87,32 +87,35 @@ exports.getAppointmentByBarber = async(req, res) => {
   }
 }
 
-exports.cancelAppointment = async(req, res) => {
-  const {id} = req.params;
+exports.cancelAppointment = async (req, res) => {
+  const { id } = req.params;
+  const { id: authId, role } = req.user;
 
-  try{
-    const appointment = await Appointment
-    .findById(id)
-    .populate('userId', 'firstname lastname')
-    .populate('barberId', 'firstname lastname')
+  try {
+    const appointment = await Appointment.findById(id)
+      .populate('userId', 'firstname lastname')
+      .populate('barberId', 'firstname lastname');
 
-    if(!appointment){
-      return res.status(400).json({message: 'Appointment not found'})
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
     }
 
-    if (appointment.userId._id.toString() !== req.user.id) {
-    return res.status(400).json({ message: 'Not your appointment' });
+    const isCustomer = role === 'CUSTOMER' && appointment.userId?._id?.toString() === authId;
+    const isBarber   = role === 'BARBER'   && appointment.barberId?._id?.toString() === authId;
+
+    if (!(isCustomer || isBarber)) {
+      return res.status(403).json({ message: 'Not allowed to cancel this appointment' });
     }
 
     await appointment.deleteOne();
-    logger.info('Appointment deleted successfully')
-    logger.warn('Appointment deleted successfully')
-    res.status(200).json({message: 'Appointment canceled'})
-  }catch(err){
-    logger.error('Failed to delete appointment')
-    res.status(400).json({status: false, data: err})
+    logger.info('Appointment deleted successfully');
+    return res.status(200).json({ status: true, message: 'Appointment canceled' });
+  } catch (err) {
+    logger.error('Failed to delete appointment', { err });
+    return res.status(400).json({ status: false, message: 'Failed to delete appointment' });
   }
-}
+};
+
 
 exports.updateAppointmentStatus = async (req, res) => {
   const {id} = req.params;    
