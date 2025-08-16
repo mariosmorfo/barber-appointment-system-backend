@@ -8,7 +8,7 @@ function generateAccesToken(user){
     role: user.role
   }
 
-  const secret = process.env.TOKEN_SECRET;
+  const secret = process.env.JWT_SECRET;
 
   const options = {expiresIn: '2h'}
 
